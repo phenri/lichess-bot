@@ -7,14 +7,14 @@ in Python that talks to a Stockfish process.
 ## Usage
 
 You need Python and [Stockfish](http://Stockfishchess.org/) installed.
-Make sure Stockfish is in your $PATH. Run the websocket server:
+Make sure Stockfish is in your `$PATH`. Run the websocket server:
 
     python server.py
 
 Next, install hook.js onto the game page using Greasemonkey or userscripts or
-whatever. Just install it onto en.lichess.org/*. Alternately, a little
+whatever. Just install it onto `en.lichess.org/*`. Alternatively, a little
 hack you can use if you just want to test out lichess-bot is to run this
-one-line Bash mini-web-server:
+one-line Bash web-server:
 
     while true; do { echo -e 'HTTP/1.1 200 OK\r\n'; cat hook.js; } | nc -l 8080; done
 
@@ -26,7 +26,7 @@ console and run:
     script.setAttribute('src', 'http://localhost:8080/');
     document.head.appendChild(script);
 
-to dynamically include the script into the head.
+to dynamically load the script onto the page.
 
 Once you've done all that, you should see Stockfish making moves for you. If it
 ever stops, it's probably because the other player moved so fast the script
