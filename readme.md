@@ -41,5 +41,6 @@ is over 3,000.
 <div>
 I set Stockfish to favor aggressiveness because I like fast games. I use four
 threads, but you should change that to the number of cores your processor has.
-You can change these things (and a few other settings) in Engine.__init__.
+You can change these things (and a few other settings) in server.py under
+<code>Engine.__init__</code>.
 </div>
