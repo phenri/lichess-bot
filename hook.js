@@ -1,12 +1,8 @@
-// this script should be loaded before the game starts
-
-function byId(id)
-{
+function byId(id) {
   return document.getElementById(id);
 }
 
-function makeMove(from, to)
-{
+function makeMove(from, to) {
   var eventClick = document.createEvent('Events');
   var eventHover = document.createEvent('Events');
 
@@ -18,13 +14,11 @@ function makeMove(from, to)
   byId(to).childNodes[0].dispatchEvent(eventClick);
 }
 
-function getColorFromLink(url)
-{
+function getColorFromLink(url) {
   return (url.indexOf('black') == -1 ? 'w' : 'b');
 }
 
-function getPlayerColor()
-{
+function getPlayerColor() {
   LINK_TITLE = 'Share this URL to let spectators see the game';
 
   var links = document.getElementsByTagName('a');
@@ -34,15 +28,13 @@ function getPlayerColor()
   return null;
 }
 
-function getTurn()
-{
+function getTurn() {
   var div = document.getElementsByClassName('lichess_player')[0];
 
   return (div.style.display == 'none' ? 'b' : 'w');
 }
 
-function getFen()
-{
+function getFen() {
   var xhr = new XMLHttpRequest();
   var fen = null; 
 
@@ -71,8 +63,7 @@ WebSocket.prototype.sendJSON = function(data) {
   this.send(JSON.stringify(data));
 }
 
-function Chess(onConnected)
-{
+function Chess(onConnected) {
   var _this = this;
   this.sock = new WebSocket('ws://localhost:8000');
 
@@ -89,8 +80,7 @@ function Chess(onConnected)
   this.handlers = {};
 }
 
-Chess.prototype.handleMessage = function(data)
-{
+Chess.prototype.handleMessage = function(data) {
   console.log(data);
 
   if ('error' in data) {
@@ -108,15 +98,13 @@ Chess.prototype.handleMessage = function(data)
         this.handlers[data.op][i](data);
 };
 
-Chess.prototype.on = function(op, callback)
-{
+Chess.prototype.on = function(op, callback) {
   if (!(op in this.handlers))
     this.handlers[op] = [];
   this.handlers[op].push(callback);
 };
 
-Chess.prototype.getNextMove = function(duration)
-{
+Chess.prototype.getNextMove = function(duration) {
   var packet = {
     op: 'get_next_move',
     fen: getFen(),
@@ -131,21 +119,19 @@ Chess.prototype.getNextMove = function(duration)
 var playerColor = getPlayerColor();
 var lastMove = null;
 
-function time()
-{
+function time() {
   return (new Date()).getTime();
 }
 
-// for now, as a basic way to lower suspicion, i'm just going to
-// take half the time my opponent does
-function calculateMoveDuration(opponentDuration)
-{
-  return 1000; // Math.floor(opponentDuration / 2);
+function calculateMoveDuration(opponentDuration) {
+  return 1000;
+
+  // right now i'm just telling Stockfish to think for a second, but you can
+  // also have it think proportional to how long the opponent thinks, like
+  // Math.floor(oppenentDuration / 2) or something.
 }
 
-// worker function to check if turn's changed
-function checkTurnChange()
-{
+function checkTurnChange() {
   if (self.turn === undefined) {
     self.turn = getTurn();
     return;
@@ -153,7 +139,7 @@ function checkTurnChange()
 
   var turn = getTurn();
 
-  // and if it's changed to my turn, make a move
+  // if it's changed to my turn, make a move
   if (turn != self.turn) {
     if (turn == playerColor)
       chess.getNextMove(calculateMoveDuration(time() - lastMove));
@@ -161,8 +147,7 @@ function checkTurnChange()
   }
 }
 
-var chess = new Chess(function(obj)
-{
+var chess = new Chess(function(obj) {
   // if it's our turn, start by making a move
   if (playerColor == getTurn())
     obj.getNextMove();
