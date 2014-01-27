@@ -21,10 +21,10 @@ one-line Bash mini-web-server:
 and then everytime you enter a game, open your browser's JavaScript
 console and run:
 
-  var script = document.createElement('script');
+    var script = document.createElement('script');
 
-  script.setAttribute('src', 'http://localhost:8080/');
-  document.head.appendChild(script);
+    script.setAttribute('src', 'http://localhost:8080/');
+    document.head.appendChild(script);
 
 to dynamically include the script into the head.
 
