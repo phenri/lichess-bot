@@ -13,7 +13,7 @@ Make sure Stockfish is in your $PATH. Run the websocket server:
     python server.py
 
 Next, install hook.js onto the game page using Greasemonkey or userscripts or
-whatever. Just install it onto en.lichess.org/******. Alternative, a little
+whatever. Just install it onto en.lichess.org/*. Alternative, a little
 hack you can use if you just want to test out lichess-bot is to run this
 one-line Bash mini-web-server:
 
